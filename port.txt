@@ -1,0 +1,34 @@
+# 🔒 Service and Risk Analysis for Open Ports
+
+1. Port 21 (FTP)
+   - Service: GNU Inetutils FTPd 1.4.1
+   - Risk: FTP transmits credentials and data in plaintext, which can be intercepted by attackers.
+   - Recommendation: Replace with SFTP (uses SSH) or FTPS (uses TLS). If not in use, disable.
+
+2. Port 22 (SSH)
+   - Service: SSH (filtered)
+   - Risk: Even though it is filtered, if reachable, SSH can be brute-forced if weak passwords are used.
+   - Recommendation: Use key-based authentication, change default port, and disable root login.
+
+3. Port 53 (DNS)
+   - Service: dnsmasq 2.87
+   - Risk: If misconfigured, can be used for DNS amplification attacks or cache poisoning.
+   - Recommendation: Restrict to local use, patch regularly, and disable external recursion.
+
+4. Port 80 (HTTP)
+   - Service: Boa HTTPd 0.93.15
+   - Risk: Transmits data in plaintext and the Boa HTTP server is outdated and no longer maintained.
+   - Recommendation: Replace with a secure and updated web server (e.g., Nginx), and redirect to HTTPS.
+
+5. Port 443 (HTTPS)
+   - Service: Boa HTTPd 0.93.15
+   - Risk: Boa HTTPd has known vulnerabilities, even on HTTPS. SSL/TLS may be weak if not properly configured.
+   - Recommendation: Use strong TLS configuration, update to modern web server software.
+
+---
+
+# 🔐 General Security Recommendations:
+- Disable unused or outdated services (especially FTP and Boa HTTPd).
+- Regularly update all server software.
+- Use a firewall to limit port access to trusted IPs.
+- Monitor network traffic and scan regularly.
